@@ -1,0 +1,69 @@
+---
+title: "Homework #3 - MATH 257"
+author: "Noah Arias"
+format:
+    pdf:
+        include-in-header:
+        - text: |
+            \usepackage{amsmath}
+            \usepackage{tcolorbox}
+---
+
+# Problem 1
+
+We have four I.I.D. random variables $\textbf{X}_1, \textbf{X}_2, \textbf{X}_3, \textbf{X}_4 \sim N_p(\mu, \symbf{\Sigma})$
+
+## Part (a)
+For $\textbf{V}_1 = \frac{1}{4}\textbf{X}_1 - \frac{1}{4}\textbf{X}_2 + \frac{1}{4}\textbf{X}_3 - \frac{1}{4}\textbf{X}_4$, since $\textbf{V}_1$ is a linear combination of I.I.D. normally distributed random variables, then $V_1$ is also normally distributed.
+
+We rewrite the linear combination as a matrix product as follows:
+
+$$
+\begin{aligned}
+\frac{1}{4}\textbf{X}_1 - \frac{1}{4}\textbf{X}_2 + \frac{1}{4}\textbf{X}_3 - \frac{1}{4}\textbf{X}_4 &= \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix} \cdot \begin{pmatrix} \textbf{X}_1 \\ \textbf{X}_2 \\ \textbf{X}_3 \\ \textbf{X}_4 \end{pmatrix}
+\end{aligned}
+$$
+
+Where $\textbf{A} = \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix}$ and $\textbf{X} = \begin{pmatrix} \textbf{X}_1 \\ \textbf{X}_2 \\ \textbf{X}_3 \\ \textbf{X}_4 \end{pmatrix}$.
+
+In doing so, we can leverage the following result: $\textbf{AX} \sim N_{V_1}(\textbf{A}\mu, \textbf{A}\symbf{\Sigma}\textbf{A}^{\top})$
+
+The mean of $\textbf{V}_1$ is the following:
+
+$$
+\begin{aligned}
+E(\textbf{V}_1) = E(\textbf{AX}) = \textbf{A}E(\textbf{X}) = \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix} \cdot \begin{pmatrix} \mu \\ \mu \\ \mu \\ \mu \end{pmatrix} = \frac{1}{4}\mu - \frac{1}{4}\mu + \frac{1}{4}\mu - \frac{1}{4}\mu = 0
+\end{aligned}
+$$
+
+The covariance matrix of 
+$$
+\begin{aligned}
+\symbf{\Sigma}_{\textbf{V}_1} &= \textbf{A}\symbf{\Sigma}\textbf{A}^\top \\ &= \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix} \cdot \begin{pmatrix} \sigma_{1,1} & \sigma_{1,2} & \sigma_{1,3} & \sigma_{1,4} \\ \sigma_{2,1} & \sigma_{2,2} & \sigma_{2,3} & \sigma_{2,4} \\ \sigma_{3,1} & \sigma_{3,2} & \sigma_{3,3} & \sigma_{3,4} \\ \sigma_{4,1} & \sigma_{4,2} & \sigma_{4,3} & \sigma_{4,4} \end{pmatrix} \cdot \begin{pmatrix} \frac{1}{4} \\ -\frac{1}{4} \\ \frac{1}{4} \\ -\frac{1}{4} \end{pmatrix} \\ &= \begin{pmatrix} \frac{1}{4}(\sigma_{1,1} - \sigma_{2,1} + \sigma_{3,1} - \sigma_{4,1}), & \frac{1}{4}(\sigma_{1,2} - \sigma_{2,2} + \sigma_{3,2} - \sigma_{4,2}), \\ & \frac{1}{4}(\sigma_{1,3} - \sigma_{2,3} + \sigma_{3,3} - \sigma_{4,3}), & \frac{1}{4}(\sigma_{1,4} - \sigma_{2,4} + \sigma_{3,4} - \sigma_{4,4})\end{pmatrix} \cdot \begin{pmatrix} \frac{1}{4} \\ -\frac{1}{4} \\ \frac{1}{4} \\ -\frac{1}{4} \end{pmatrix} \\ &= \frac{1}{16}(\sigma_{1,1} - \sigma_{2,1} + \sigma_{3,1} - \sigma_{4,1}) - \frac{1}{16}(\sigma_{1,2} - \sigma_{2,2} + \sigma_{3,2} - \sigma_{4,2}) \\ &+ \frac{1}{16}(\sigma_{1,3} - \sigma_{2,3} + \sigma_{3,3} - \sigma_{4,3}) - \frac{1}{16}(\sigma_{1,4} - \sigma_{2,4} + \sigma_{3,4} - \sigma_{4,4}) \\ &= \frac{1}{16}(\sigma_{1,1} - \sigma_{2,1} + \sigma_{3,1} - \sigma_{4,1} - \sigma_{1,2} + \sigma_{2,2} - \sigma_{3,2} + \sigma_{4,2} \\ &+ \sigma_{1,3} - \sigma_{2,3} + \sigma_{3,3} - \sigma_{4,3} - \sigma_{1,4} + \sigma_{2,4} - \sigma_{3,4} + \sigma_{4,4}) \\ &= \frac{1}{16}(\sigma_{1,1} - 2\sigma_{2,1} + 2\sigma_{3,1} - 2\sigma_{4,1} + \sigma_{2,2} - 2\sigma_{3,2} + 2\sigma_{4,2} + \sigma_{3,3} - 2\sigma_{4,3} + \sigma_{4,4})
+\end{aligned}
+$$
+
+Therefore, $\color{red}\boxed{\color{black} \textbf{V}_1 \sim N(0, \frac{1}{16}(\sigma_{1,1} - 2\sigma_{2,1} + 2\sigma_{3,1} - 2\sigma_{4,1} + \sigma_{2,2} - 2\sigma_{3,2} + 2\sigma_{4,2} + \sigma_{3,3} - 2\sigma_{4,3} + \sigma_{4,4}))}$
+
+
+
+
+
+
+
+## Part (b)
+
+
+
+
+# Problem 2
+## Part (a)
+
+
+## Part (b)
+
+
+## Part (c)
+
+
+## Part (d)
