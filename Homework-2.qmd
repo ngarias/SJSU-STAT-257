@@ -1,0 +1,384 @@
+---
+title: "Homework #2 - MATH 257"
+author: "Noah Arias"
+format: typst
+---
+
+# Problem 1
+## Part (a)
+Let $S = AA^{\top}$. Thus:
+
+$S = AA^{\top} = \begin{bmatrix} 4 & 8 & 8 \\ 3 & 6 & -9\end{bmatrix} \cdot \begin{bmatrix} 4 & 3 \\ 8 & 6 \\ 8 & -9\end{bmatrix} = \begin{bmatrix} 144 & -12 \\ -12 & 126 \end{bmatrix}$
+
+(We briefly pause the calculation to note that this matrix $S$ is symmetric and non-singular.)
+
+To find the eigenvalues of $S$, we create and solve the characteristic equation:
+$$
+\det(S - \lambda I_2) = 0 
+$$
+
+where $I_2$ is the $2 \times 2$ identity matrix. Performing the calculation, we get:
+$$
+\begin{aligned} 
+\det(S - \lambda I_2) &= \det(\begin{bmatrix} 144 & -12 \\ -12 & 126 \end{bmatrix} - \lambda \cdot \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}) \\ &= \det(\begin{bmatrix} 144 - \lambda & -12 \\ -12 & 126 - \lambda \end{bmatrix}) \\ &= (144 - \lambda)(126 - \lambda) - 144 \\ &= 18{,}144 - 144\lambda - 126\lambda + \lambda^2 - 144 \\ &= \lambda^2 - 270\lambda + 18{,}000 \\ &= 0
+\end{aligned}
+$$
+
+Solving this quadratic equation with the quadratic formula yields the two eigenvalues, $\lambda_1$ and $\lambda_2$ being:
+
+$$
+\lambda_1 = 150, \lambda_2 = 120
+$$
+
+Once we find the eigenvalues, we use them to find their corresponding eigenvectors:
+
+**For $\lambda_1 = 150$:**
+
+$$
+\begin{aligned} (S - \lambda_1 I_2) \cdot \vec{v} &= 0 \\ \begin{bmatrix} 144 - 150 & -12 \\ -12 & 126 - 150 \end{bmatrix} &= \begin{bmatrix} -6 & -12 \\ -12 & -24 \end{bmatrix} \\ &\overset{\text{RREF}}{\Longrightarrow} \begin{bmatrix} 1 & 2 \\ 0 & 0 \end{bmatrix}\\
+\end{aligned}
+$$
+
+Thus $x_1 + 2x_2 = 0 \implies x_1 = -2x_2$. The eigenvector for $\lambda_1$ is (-2, 1).
+
+**For $\lambda_2 = 120$:**
+
+$$
+\begin{aligned} (S - \lambda_2 I_2) \cdot \vec{v} &= 0 \\ \begin{bmatrix} 144 - 120 & -12 \\ -12 & 126 - 120 \end{bmatrix} &= \begin{bmatrix} 24 & -12 \\ -12 & 6 \end{bmatrix} \\ &\overset{\text{RREF}}{\Longrightarrow} \begin{bmatrix} 1 & -\frac{1}{2} \\ 0 & 0 \end{bmatrix}\\
+\end{aligned}
+$$
+
+Thus $x_1 - \frac{1}{2}x_2 = 0 \implies x_2 = 2x_1$. The eigenvector for $\lambda_2$ is (1, 2).
+
+## Part (b)
+
+Let $S = A^{\top}A$. Thus:
+
+$S^* = A^{\top}A = \begin{bmatrix} 4 & 3 \\ 8 & 6 \\ 8 & -9\end{bmatrix} \cdot \begin{bmatrix} 4 & 8 & 8 \\ 3 & 6 & -9\end{bmatrix} = \begin{bmatrix} 25 & 50 & 5 \\ 50 & 100 & 10 \\ 5 & 10 & 145 \end{bmatrix}$
+
+To find the eigenvalues of $S^*$, we create and solve the characteristic equation:
+
+$$
+\det(S^* - \lambda I_3) = 0
+$$
+
+where $I_3$ is the $3 \times 3$ identity matrix. Performing the calculation, we get:
+
+
+$$
+\begin{aligned} \det(S^* - \lambda I_3)
+&= \det(\begin{bmatrix} 25 & 50 & 5 \\ 50 & 100 & 10 \\ 5 & 10 & 145 \end{bmatrix} - \lambda \cdot \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}) \\ 
+&= \det(\begin{bmatrix} 25 - \lambda & 50 & 5 \\ 50 & 100 - \lambda & 10 \\ 5 & 10 & 145 - \lambda \end{bmatrix}) \\
+&= (25 - \lambda) \begin{bmatrix} 100-\lambda & 10 \\ 10 & 145-\lambda \end{bmatrix} - 50 \begin{bmatrix} 50 & 10 \\ 5 & 145-\lambda \end{bmatrix} + 5 \begin{bmatrix} 50 & 100-\lambda \\ 5 & 10 \end{bmatrix}\\
+&= -\lambda^3 + 270 \lambda^2 - 18000\lambda \\ &= 0
+\end{aligned}
+$$
+
+Solving this cubic equation via factorization yields the three eigenvalues, $\lambda_1$, $\lambda_2$, and $\lambda_3$ being:
+
+
+$$
+\lambda_1 = 150, \lambda_2 = 120, \lambda_3 = 0
+$$
+
+We present the calculation the eigenvector associated with $\lambda_1 = 150$:
+
+
+$$
+\begin{aligned} 
+(S^* - \lambda_1 I_3)\cdot \vec{v} &= 0 \\
+\left(\begin{bmatrix} 25 & 50 & 5 \\ 50 & 100 & 10 \\ 5 & 10 & 145 \end{bmatrix} - \begin{bmatrix} 150 & 0 & 0 \\ 0 & 150 & 0 \\ 0 & 0 & 150 \end{bmatrix}\right) \cdot \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} &= 0 \\
+\begin{bmatrix} -125 & 50 & 5 \\ 50 & -50 & 10 \\ 5 & 10 & -5 \end{bmatrix} \cdot \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} &= 0 \overset{\text{RREF}}{\Longrightarrow} \begin{bmatrix} 1 & 0 & -\frac{1}{5} \\ 0 & 1 & -\frac{2}{5} \\ 0 & 0 & 0 \end{bmatrix} \cdot \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = 0\\
+\end{aligned}
+$$
+
+Solving the corresponding system of equations, we arrive at the eigenvector for $\lambda_1$ to be $\vec{v}_{\lambda_1} = (1, 2, 5)$. $\lambda_2$ has eigenvector $\vec{v}_{\lambda_2} = (1, 2, -1)$. Despite $\lambda_3 = 0$, it still has an associated eigenvector. It is found by taking the cross-product of the other two eigenvectors.
+
+
+$$
+\begin{aligned}
+\vec{v}_{\lambda_3} &= \vec{v}_{\lambda_1} \times \vec{v}_{\lambda_2} \\
+&= (1, 2, 5) \times (1, 2, -1) \\
+&= (-12, 6, 0) \implies (-2, 1, 0)\\
+\end{aligned}
+$$
+
+## Part (c)
+
+To compute the singular-value decomposition (SVD) of A, we need to find the singular values, and the left and right singular vectors for the decomposition: $A = U \Sigma V^{\top}$.
+
+Since we have already found the eigenvalues of $AA^{\top}$, finding the sigular values are straightforward: they are the square-root of the eigenvalues. Therefore, the singular values for $AA^{\top}$ are:
+
+$$
+\begin{aligned}
+\sigma_1 = \sqrt{\lambda_1} = \sqrt{150} \approx 12.24 \\
+\sigma_2 = \sqrt{\lambda_2} = \sqrt{120} \approx 10.95
+\end{aligned}
+$$
+
+We will also need the normalized eigenvectors of $A^{\top}A$ and $AA^{\top}$. These will be the left and right singular vectors, respectively! All we must do is normalize the eigenvectors that we have found from parts (a) and (b). Note that eigenvectors are only determined up to a sign, so we must choose signs consistent with $A\vec{v}_i = \sigma_i \vec{u}_i$; checking this condition against our Part (b) eigenvector for $\lambda_1$ requires flipping the sign found in Part (a):
+
+$$
+\begin{aligned}
+\vec{u}_{\lambda_1} &= \frac{1}{\sqrt{5}}(2, -1) \\
+\vec{u}_{\lambda_2} &= \frac{1}{\sqrt{5}}(1, 2) \\
+\vec{v}_{\lambda_1} &= \frac{1}{\sqrt{30}}(1, 2, 5)\\
+\vec{v}_{\lambda_2} &= \frac{1}{\sqrt{6}}(1, 2, -1)\\
+\vec{v}_{\lambda_3} &= \frac{1}{\sqrt{5}}(-2, 1, 0)\\
+\end{aligned}
+$$
+
+The matrix $\Sigma$ is consists of the singular values:
+
+$$
+\Sigma = \begin{pmatrix} \sqrt{150} & 0 & 0 \\ 0 & \sqrt{120} & 0\end{pmatrix} \\
+$$
+
+Now that every eigenvector is normalized, they become the column vectors of the $U$ and $V$ matrices as follows:
+
+$$
+\begin{aligned}
+U &= \begin{pmatrix} \frac{2}{\sqrt{5}} & \frac{1}{\sqrt{5}} \\ \frac{-1}{\sqrt{5}} & \frac{2}{\sqrt{5}} \end{pmatrix} \\
+V &= \begin{pmatrix} \frac{1}{\sqrt{30}} & \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{5}} \\ \frac{2}{\sqrt{30}} & \frac{2}{\sqrt{6}} & \frac{1}{\sqrt{5}} \\ \frac{5}{\sqrt{30}} & \frac{-1}{\sqrt{6}} & 0\end{pmatrix}
+\end{aligned}
+$$
+
+In conclusion, the singular value decomposition of A is as follows:
+
+$$
+A = U \Sigma V = \begin{pmatrix} \frac{2}{\sqrt{5}} & \frac{1}{\sqrt{5}} \\ \frac{-1}{\sqrt{5}} & \frac{2}{\sqrt{5}} \end{pmatrix} \begin{pmatrix} \sqrt{150} & 0 & 0 \\ 0 & \sqrt{120} & 0\end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt{30}} & \frac{2}{\sqrt{30}} & \frac{5}{\sqrt{30}} \\ \frac{1}{\sqrt{6}} & \frac{2}{\sqrt{6}} & \frac{-1}{\sqrt{6}} \\ \frac{-2}{\sqrt{5}} & \frac{1}{\sqrt{5}} & 0\end{pmatrix}
+$$
+
+
+# Problem 2
+## Part (a)
+To calculate the mean of $X^{(1)}$, we can simply extract the information from the mean vector initially provided:
+
+$$
+\begin{aligned}
+E(X^{(1)}) = (4,3)
+\end{aligned}
+$$
+
+## Part (b)
+Using the formula $E(\mathbf{A} \mathbf{X}) = \mathbf{A} \cdot \mathbf{\mu}$:
+
+$$
+\begin{aligned}
+E(\mathbf{A} X^{(1)}) = (1,2)\cdot \begin{pmatrix} 4 \\ 3\end{pmatrix} = 10
+\end{aligned}
+$$
+
+## Part (c)
+To find out the $\text{Cov}(X^{(1)})$, we look at $\mathbf{\Sigma}_{X^{(1)}}$, and extract out the entries that correspond to the variance and covariances between $X_1$ and $X_2$:
+
+$$
+\text{Cov}(X^{(1)}) = \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix}
+$$
+
+## Part (d)
+Like in part (b), there is a formula that we can leverage to solve for $\text{Cov}(\mathbf{A}X^{(1)})$:
+
+$$
+\text{Cov}(\mathbf{A}X^{(1)}) = \mathbf{A}\mathbf{\Sigma}\mathbf{A^{\top}}
+$$
+
+Therefore:
+$$
+\text{Cov}(\mathbf{A}X^{(1)}) = (1,2) \begin{pmatrix} 3 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \end{pmatrix} = 7
+$$
+
+## Part (e)
+To calculate the mean of $X^{(2)}$, we can simply extract the information from the mean vector initially provided:
+
+$$
+\begin{aligned}
+E(X^{2}) = (2,1)
+\end{aligned}
+$$
+
+## Part (f)
+Using the formula $E(\mathbf{A} \mathbf{X}) = \mathbf{A} \cdot \mathbf{\mu}$:
+
+$$
+\begin{aligned}
+E(\mathbf{B} X^{(2)}) = \begin{pmatrix} 1 & -2 \\ 2 & -1\end{pmatrix} \cdot \begin{pmatrix} 2 \\ 1\end{pmatrix} = \begin{pmatrix} 0 \\ 3\end{pmatrix}
+\end{aligned}
+$$
+
+## Part (g)
+To find out the $\text{Cov}(X^{(2)})$, we look at $\mathbf{\Sigma}_{X^{(2)}}$, and extract out the entries that correspond to the variance and covariances between $X_3$ and $X_4$:
+
+$$
+\text{Cov}(X^{(2)}) = \begin{bmatrix} 9 & -2 \\ -2 & 4 \end{bmatrix}
+$$
+
+## Part (h)
+Like in part (b), there is a formula that we can leverage to solve for $\text{Cov}(\mathbf{B}X^{(2)})$:
+
+$$
+\text{Cov}(\mathbf{B}X^{(2)}) = \mathbf{B}\mathbf{\Sigma}\mathbf{B^{\top}}
+$$
+
+Therefore:
+$$
+\text{Cov}(\mathbf{B}X^{(2)}) = \begin{pmatrix} 1 & -2 \\ 2 & -1 \end{pmatrix} \begin{pmatrix} 3 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & 2 \\ -2 & -1 \end{pmatrix} = \begin{pmatrix} 7 & 8 \\ 8 & 13 \end{pmatrix}
+$$
+
+## Part (i)
+The covariance between the vectors $X^{(1)}$ and $X^{(2)}$ can be extracted by looking in the top right or the bottom left quadrant. Both submatrices directly contain the relevant information. Therefore:
+
+$$
+\text{Cov}(X^{(1)}, X^{(2)}) = \begin{pmatrix} 2 & 2 \\ 1 & 0 \end{pmatrix}
+$$
+
+Notice that the top right submatrix is the transpose of the bottom left, and vice versa. This matches the requirement that covariance matrices are symmetric and that the covariance operation is commutative.
+
+## Part (j)
+The direct formula for $\text{Cov}(\mathbf{A}X^{(1)}, \mathbf{B}X^{(2)}) = \mathbf{A}\text{Cov}(X^{(1)}, X^{(2)})\mathbf{B}^{\top}$. Therefore:
+
+$$
+\text{Cov}(\mathbf{A}X^{(1)}, \mathbf{B}X^{(2)}) = (1,2) \begin{pmatrix} 2 & 2 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 1 & 2 \\ -2 & -1 \end{pmatrix} = (0, 6)
+$$
+
+# Problem 3
+## Part (a)
+The correlation is a symmetric matrix whose entries are all the measures of correlation between pair-wise combinations of random variables. Correlation is calculated in the following way:
+
+$$
+\begin{aligned}
+\rho_{i,j} = \frac{\text{Cov}(X_i, X_j)}{\sqrt{Var(X_i)}\sqrt{Var(X_j)}}
+\end{aligned}
+$$
+
+We notice that $\rho_{i,j} = \rho_{j,i}$ because the numerator and denominator allow commutation of $X_i$ and $X_j$. This is the reason why the correlation matrix is symmetric. The correlation captures a sense of the proportion of the variation inheriently tied between two variables over the hypothetical case where they were completely independent of each other.
+
+$$
+\begin{aligned}
+\rho_{1,2} &= \frac{\text{Cov}(X_1, X_2)}{\sqrt{Var(X_1)}\sqrt{Var(X_2)}} = \frac{-2}{5\cdot2} = \frac{-1}{5}\\
+\rho_{2,3} &= \frac{\text{Cov}(X_2, X_3)}{\sqrt{Var(X_2)}\sqrt{Var(X_3)}} = \frac{4}{5\cdot3} = \frac{4}{15}\\
+\rho_{1,3} &= \frac{\text{Cov}(X_1, X_3)}{\sqrt{Var(X_1)}\sqrt{Var(X_3)}} = \frac{1}{2\cdot3} = \frac{1}{6}\\
+\end{aligned}
+$$
+
+Therefore, the correlation matrix will be:
+
+$$
+\begin{aligned}
+\mathbf{\rho} = \begin{pmatrix} 1 & -\frac{1}{5} & \frac{4}{15} \\ -\frac{1}{5} & 1 & \frac{1}{6} \\ \frac{4}{15} & \frac{1}{6} & 1 \end{pmatrix}
+\end{aligned}
+$$
+
+The standard deviation matrix is a matrix all entries are zero, except for the main diagonal, which consists of the square root of the variances of each random variable, as follows:
+
+$$
+\begin{aligned}
+V^{\frac{1}{2}} = \begin{pmatrix} \sqrt{\text{Var}(X_1)} & 0 & 0 \\ 0 & \sqrt{\text{Var}(X_2)} & 0 \\ 0 & 0 & \sqrt{\text{Var}(X_3)} \end{pmatrix} = \begin{pmatrix} \sqrt{25} & 0 & 0 \\ 0 & \sqrt{4} & 0 \\ 0 & 0 & \sqrt{9} \end{pmatrix} = \begin{pmatrix} 5 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}
+\end{aligned}
+$$
+
+## Part (b)
+
+We now check that the multiplication of $V^{\frac{1}{2}}\mathbf{\rho}V^{\frac{1}{2}} = \mathbf{\Sigma}$:
+
+$$
+\begin{aligned}
+V^{\frac{1}{2}}\mathbf{\rho}V^{\frac{1}{2}} &= \begin{pmatrix} 5 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix} \begin{pmatrix} 1 & -\frac{1}{5} & \frac{4}{15} \\ -\frac{1}{5} & 1 & \frac{1}{6} \\ \frac{4}{15} & \frac{1}{6} & 1 \end{pmatrix} \begin{pmatrix} 5 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix} \\ &= \begin{pmatrix} 5 & -1 & \frac{4}{3} \\ -\frac{2}{5} & 2 & \frac{1}{3} \\ \frac{4}{5} & \frac{1}{2} & 3 \end{pmatrix} \begin{pmatrix} 5 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix} \\ &= \begin{pmatrix} 25 & -2 & 4 \\ -2 & 4 & 1 \\ 4 & 1 & 9\end{pmatrix} \\ &= \mathbf{\Sigma}
+\end{aligned}
+$$
+
+# Problem 4
+We are tasked to find the expectation and variance of a linear combination of random vectors. The expectation of a linear combination is always the linear combination of the expectation of each random variable, regardless of whether the variables are independent of each other.
+
+Since we have not be told beforehand that all the variables are mutually independent from each other, we cannot assume that any covariance terms are zero.
+## Part (a)
+$$
+\begin{aligned}
+E(X_1 + 2X_2) &= E(X_1) + 2E(X_2) = \mu_1 + 2\mu_2 \\
+\text{Var}(X_1 + 2X_2) &= \text{Var}(X_1) + 2^2 \cdot \text{Var}(X_2) - 2\cdot2\text{Cov}(X_1, X_2) = \sigma_1^2 + 4\sigma_2^2 - 4\cdot\text{Cov}(X_1, X_2)
+\end{aligned}
+$$
+
+
+## Part (b)
+$$
+\begin{aligned}
+E(-X_1 + 3X_2) &= -E(X_1) + 3E(X_2) = -\mu_1 + 3\mu_2 \\
+\text{Var}(-X_1 + 3X_2) &= \text{Var}(X_1) + 3^2 \cdot \text{Var}(X_2) - 2\cdot3\text{Cov}(X_1, X_2) = \sigma_1^2 + 9\sigma_2^2 - 6\cdot\text{Cov}(X_1, X_2)
+\end{aligned}
+$$
+
+## Part (c)
+$$
+\begin{aligned}
+E(X_1 + X_2 + X_3) &= E(X_1) + E(X_2) + E(X_3)= \mu_1 + \mu_2 + \mu_3 \\
+\text{Var}(X_1 + X_2 + X_3) &= \text{Var}(X_1) + \text{Var}(X_2) + \text{Var}(X_2)- 2\cdot\text{Cov}(X_1, X_2) - 2\cdot\text{Cov}(X_1, X_2) \\ - 2\cdot\text{Cov}(X_1, X_2) \\ &= \sigma_1^2 + \sigma_2^2 + \sigma_3^2 - 2\cdot\text{Cov}(X_1, X_3) - 2\cdot\text{Cov}(X_1, X_2) - 2\cdot\text{Cov}(X_2, X_3)
+\end{aligned}
+$$
+
+## Part (d)
+$$
+\begin{aligned}
+E(X_1 + 2X_2 - X_3) &= E(X_1) + 2E(X_2) - E(X_3) = \mu_1 + 2\mu_2 - \mu_3 \\
+\text{Var}(X_1 + 2X_2 - X_3) &= \text{Var}(X_1) + 4 \cdot \text{Var}(X_2) + \text{Var}(X_3) + 4\text{Cov}(X_1, X_2) \\ &- 2\text{Cov}(X_1, X_3) - 4\text{Cov}(X_2, X_3)
+\end{aligned}
+$$
+
+# Problem 5
+To determine whether or not two variables are independent, we look at the corresponding covariance entry in the covariance matrix. If the entry is zero, then the variables are independent. If the entry is non-zero, then the variables are dependent.
+## Part (a)
+$X_1$ and $X_2$ are independent because the covariance entry in the first row and second column is equal to zero.
+
+## Part (b)
+$X_1$ and $X_3$ are dependent because the covariance entry in the first row and second column is non-zero.
+
+## Part (c)
+$X_2$ and $X_3$ are independent because the covariance entry in the second row and third column is equal to zero.
+
+## Part (d)
+We must test the covariance between each entry of the random vector $(X_1, X_3)$ against $X_2$. However, this is simply asking about the covariance between $X_1$ and $X_2$, and the covariance between $X_2$ and $X_3$. From our prior calculations, we know that these are both zero. Therefore, the random vector $(X_1, X_3)$ and the random variable $X_2$ are independent.
+
+## Part (e)
+For part (e), we shall compute the covariance directly:
+
+$$
+\begin{aligned}
+\text{Cov}(X_1, X_1 + 3X_2 - 2X_3) &= \text{Var}(X_1) + 3\text{Cov}(X_1, X_2) - 2\text{Cov}(X_1, X_3) \\ &= 4 + 0 + -2(-1) \neq 0
+\end{aligned}
+$$
+
+Therefore, the variables are dependent.
+
+# Problem 6
+Since all $X_i$ are distributed normally, the conditional distributions are also normally distributed. Therefore, all we must do is find the mean and variance for each case using the following formulas:
+
+$$
+\begin{aligned}
+\mu &= \mu_1 + \Sigma_{1,2}\Sigma_{2,2}^{-1}(\mathbf{x_2} - \mathbf{\mu_2}) \\
+\Sigma &= \Sigma_{1,1} - \Sigma_{1,2}\Sigma_{2,2}^{-1}\Sigma_{2,1}
+\end{aligned}
+$$
+
+## Part (a)
+The distribution of $X_1 | X_3 = x_3$ is Normal with parameters according to the aforementions formulas:
+
+$$
+\begin{aligned}
+\mu_{X_1 | X_3 = x_3} &= 1 + -1 \cdot \frac{1}{3} (\mathbf{x_3}-2) = 2 - \frac{\mathbf{x_3}}{2} \\
+\Sigma_{X_1 | X_3 = x_3} &= 4 - (-1)\frac{1}{2}(-1) = 4 - 0.5 = 3.5 
+\end{aligned}
+$$
+
+Therefore:
+
+$$
+X_1 | X_3 = x_3 \sim \mathbf{N}(2 - \frac{\mathbf{x_3}}{2}, 3.5)
+$$
+
+## Part (b)
+Making $X_1$ conditional on $X_3$ *and* $X_2$ will not change the distribution relative to part (a). This is because the entries in the covariance matrix corresponding to the relative covariance between $X_2$ and $X_1$ and the relative covariance between $X_2$ and $X_3$ are both zero! Since $X_2$ is indepdent to both $X_1$ and $X_3$, it provides no extra information to either variable.
+
+Therefore:
+$$
+X_1 | X_2 = x_2, X_3 = x_3 \sim \mathbf{N}(2 - \frac{\mathbf{x_3}}{2}, 3.5)
+$$
