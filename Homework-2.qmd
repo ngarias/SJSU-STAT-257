@@ -291,7 +291,9 @@ $$
 We are tasked to find the expectation and variance of a linear combination of random vectors. The expectation of a linear combination is always the linear combination of the expectation of each random variable, regardless of whether the variables are independent of each other.
 
 Since we have not be told beforehand that all the variables are mutually independent from each other, we cannot assume that any covariance terms are zero.
+
 ## Part (a)
+
 $$
 \begin{aligned}
 E(X_1 + 2X_2) &= E(X_1) + 2E(X_2) = \mu_1 + 2\mu_2 \\
@@ -326,19 +328,25 @@ $$
 
 # Problem 5
 To determine whether or not two variables are independent, we look at the corresponding covariance entry in the covariance matrix. If the entry is zero, then the variables are independent. If the entry is non-zero, then the variables are dependent.
+
 ## Part (a)
+
 $X_1$ and $X_2$ are independent because the covariance entry in the first row and second column is equal to zero.
 
 ## Part (b)
+
 $X_1$ and $X_3$ are dependent because the covariance entry in the first row and second column is non-zero.
 
 ## Part (c)
+
 $X_2$ and $X_3$ are independent because the covariance entry in the second row and third column is equal to zero.
 
 ## Part (d)
+
 We must test the covariance between each entry of the random vector $(X_1, X_3)$ against $X_2$. However, this is simply asking about the covariance between $X_1$ and $X_2$, and the covariance between $X_2$ and $X_3$. From our prior calculations, we know that these are both zero. Therefore, the random vector $(X_1, X_3)$ and the random variable $X_2$ are independent.
 
 ## Part (e)
+
 For part (e), we shall compute the covariance directly:
 
 $$
@@ -350,6 +358,7 @@ $$
 Therefore, the variables are dependent.
 
 # Problem 6
+
 Since all $X_i$ are distributed normally, the conditional distributions are also normally distributed. Therefore, all we must do is find the mean and variance for each case using the following formulas:
 
 $$

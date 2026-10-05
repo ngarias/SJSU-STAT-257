@@ -11,59 +11,350 @@ format:
 
 # Problem 1
 
-We have four I.I.D. random variables $\textbf{X}_1, \textbf{X}_2, \textbf{X}_3, \textbf{X}_4 \sim N_p(\mu, \symbf{\Sigma})$
+We have four I.I.D. multivariate normal random variables $\textbf{X}_1, \textbf{X}_2, \textbf{X}_3, \textbf{X}_4 \sim N_p(\mu, \symbf{\Sigma})$
 
 ## Part (a)
 For $\textbf{V}_1 = \frac{1}{4}\textbf{X}_1 - \frac{1}{4}\textbf{X}_2 + \frac{1}{4}\textbf{X}_3 - \frac{1}{4}\textbf{X}_4$, since $\textbf{V}_1$ is a linear combination of I.I.D. normally distributed random variables, then $V_1$ is also normally distributed.
 
-We rewrite the linear combination as a matrix product as follows:
+Using Result 4.8 from Johnson and Wichern, the distribution of this linear combination will leverage the following formula:
 
 $$
 \begin{aligned}
-\frac{1}{4}\textbf{X}_1 - \frac{1}{4}\textbf{X}_2 + \frac{1}{4}\textbf{X}_3 - \frac{1}{4}\textbf{X}_4 &= \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix} \cdot \begin{pmatrix} \textbf{X}_1 \\ \textbf{X}_2 \\ \textbf{X}_3 \\ \textbf{X}_4 \end{pmatrix}
+\textbf{V} = \sum_{i=1}^nc_i\textbf{X}_i \sim N_{p}\Bigg(\sum_{i=1}^nc_i\mu, \Bigg(\sum_{i=1}^n c_{i}^2 \Bigg)\symbf{\Sigma}\Bigg)
 \end{aligned}
 $$
 
-Where $\textbf{A} = \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix}$ and $\textbf{X} = \begin{pmatrix} \textbf{X}_1 \\ \textbf{X}_2 \\ \textbf{X}_3 \\ \textbf{X}_4 \end{pmatrix}$.
-
-In doing so, we can leverage the following result: $\textbf{AX} \sim N_{V_1}(\textbf{A}\mu, \textbf{A}\symbf{\Sigma}\textbf{A}^{\top})$
-
-The mean of $\textbf{V}_1$ is the following:
+We evaluate the mean and variance respectively:
 
 $$
 \begin{aligned}
-E(\textbf{V}_1) = E(\textbf{AX}) = \textbf{A}E(\textbf{X}) = \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix} \cdot \begin{pmatrix} \mu \\ \mu \\ \mu \\ \mu \end{pmatrix} = \frac{1}{4}\mu - \frac{1}{4}\mu + \frac{1}{4}\mu - \frac{1}{4}\mu = 0
+\sum_{i=1}^nc_i\mu = \frac{1}{4}\mu - \frac{1}{4}\mu + \frac{1}{4}\mu - \frac{1}{4}\mu = 0
 \end{aligned}
 $$
 
-The covariance matrix of 
 $$
 \begin{aligned}
-\symbf{\Sigma}_{\textbf{V}_1} &= \textbf{A}\symbf{\Sigma}\textbf{A}^\top \\ &= \begin{pmatrix} \frac{1}{4}, -\frac{1}{4}, \frac{1}{4}, -\frac{1}{4} \end{pmatrix} \cdot \begin{pmatrix} \sigma_{1,1} & \sigma_{1,2} & \sigma_{1,3} & \sigma_{1,4} \\ \sigma_{2,1} & \sigma_{2,2} & \sigma_{2,3} & \sigma_{2,4} \\ \sigma_{3,1} & \sigma_{3,2} & \sigma_{3,3} & \sigma_{3,4} \\ \sigma_{4,1} & \sigma_{4,2} & \sigma_{4,3} & \sigma_{4,4} \end{pmatrix} \cdot \begin{pmatrix} \frac{1}{4} \\ -\frac{1}{4} \\ \frac{1}{4} \\ -\frac{1}{4} \end{pmatrix} \\ &= \begin{pmatrix} \frac{1}{4}(\sigma_{1,1} - \sigma_{2,1} + \sigma_{3,1} - \sigma_{4,1}), & \frac{1}{4}(\sigma_{1,2} - \sigma_{2,2} + \sigma_{3,2} - \sigma_{4,2}), \\ & \frac{1}{4}(\sigma_{1,3} - \sigma_{2,3} + \sigma_{3,3} - \sigma_{4,3}), & \frac{1}{4}(\sigma_{1,4} - \sigma_{2,4} + \sigma_{3,4} - \sigma_{4,4})\end{pmatrix} \cdot \begin{pmatrix} \frac{1}{4} \\ -\frac{1}{4} \\ \frac{1}{4} \\ -\frac{1}{4} \end{pmatrix} \\ &= \frac{1}{16}(\sigma_{1,1} - \sigma_{2,1} + \sigma_{3,1} - \sigma_{4,1}) - \frac{1}{16}(\sigma_{1,2} - \sigma_{2,2} + \sigma_{3,2} - \sigma_{4,2}) \\ &+ \frac{1}{16}(\sigma_{1,3} - \sigma_{2,3} + \sigma_{3,3} - \sigma_{4,3}) - \frac{1}{16}(\sigma_{1,4} - \sigma_{2,4} + \sigma_{3,4} - \sigma_{4,4}) \\ &= \frac{1}{16}(\sigma_{1,1} - \sigma_{2,1} + \sigma_{3,1} - \sigma_{4,1} - \sigma_{1,2} + \sigma_{2,2} - \sigma_{3,2} + \sigma_{4,2} \\ &+ \sigma_{1,3} - \sigma_{2,3} + \sigma_{3,3} - \sigma_{4,3} - \sigma_{1,4} + \sigma_{2,4} - \sigma_{3,4} + \sigma_{4,4}) \\ &= \frac{1}{16}(\sigma_{1,1} - 2\sigma_{2,1} + 2\sigma_{3,1} - 2\sigma_{4,1} + \sigma_{2,2} - 2\sigma_{3,2} + 2\sigma_{4,2} + \sigma_{3,3} - 2\sigma_{4,3} + \sigma_{4,4})
+\Bigg(\sum_{i=1}^n c_{j}^2 \Bigg)\symbf{\Sigma} = \frac{1}{16}\symbf{\Sigma} + \frac{1}{16}\symbf{\Sigma} + \frac{1}{16}\symbf{\Sigma} + \frac{1}{16}\symbf{\Sigma} = \frac{1}{4}\symbf{\Sigma}
 \end{aligned}
 $$
 
-Therefore, $\color{red}\boxed{\color{black} \textbf{V}_1 \sim N(0, \frac{1}{16}(\sigma_{1,1} - 2\sigma_{2,1} + 2\sigma_{3,1} - 2\sigma_{4,1} + \sigma_{2,2} - 2\sigma_{3,2} + 2\sigma_{4,2} + \sigma_{3,3} - 2\sigma_{4,3} + \sigma_{4,4}))}$
+Therefore, $\color{red}\boxed{\color{black} \textbf{V}_1 \sim N_{p}(0, \frac{1}{4}\symbf{\Sigma})}$.
 
+By a similar calculation, $\color{red}\boxed{\color{black} \textbf{V}_2 \sim N_{p}(0, \frac{1}{4}\symbf{\Sigma})}$.
 
-
-
-
-
+We notice that $\textbf{V}_1$ and $\textbf{V}_2$ have the exact same distribution even though they have different linear combinations. This is reasonable, however, as $\textbf{V}_1$ can be transformed into $\textbf{V}_2$ if one swaps the order of the $\textbf{X}_1$ and $\textbf{X}_2$ terms, and relabels $\textbf{X}_1$ as $\textbf{X}_2$, and vice versa. Since every $\textbf{X}_i$ follows the exact same distribution, then  distributional form of $\textbf{V}_1$ and $\textbf{V}_2$.
 
 ## Part (b)
+For part (b), we reference Result 4.5(c) from Johnson and Wichern:
 
+::: {#thm-1}
 
+## Joint Multivariate Distribution
 
+If $\textbf{X}_1$ and $\textbf{X}_2$ are independent and are distributed as $\textbf{N}_{q_1}(\symbf{\mu}_1,\symbf{\Sigma_{11}})$ and $\textbf{N}_{q_2}(\symbf{\mu}_2,\symbf{\Sigma_{22}})$, then
+
+$$
+\begin{bmatrix}
+\textbf{X}_1 \\
+\textbf{X}_2
+\end{bmatrix}
+\sim
+\textbf{N}_{q_1 + q_2} \Bigg(\begin{bmatrix}
+\symbf{\mu}_1 \\
+\symbf{\mu}_2
+\end{bmatrix}, \begin{bmatrix}
+\symbf{\Sigma_{1,1}} & \mathbf{0} \\
+\mathbf{0} & \symbf{\Sigma_{2,2}}
+\end{bmatrix}\Bigg)
+$$
+
+:::
+
+Before using the result straightaway, we must first check that $\textbf{V}_1$ and $\textbf{V}_2$ are indeed independent. From part (a), since we've shown that they are normally distributed, if we can that the covariance of $\textbf{V}$ and $\textbf{V}_2$ is zero, then they are mutually independent.
+
+Using the bilinearity of covariance:
+
+$$
+\text{Cov}(\textbf{V}_1, \textbf{V}_2) = \sum_{i=1}^4(v_{1,i}\cdot v_{2,i} \cdot \symbf{\Sigma})
+$$
+
+where $v_{1,i}$ and $v_{2,i}$ are the coefficients of $\textbf{V}_1$ and $\textbf{V}_2$, respectively.
+
+We will now check the entrywise product of the coefficients:
+
+$$
+v_{1,i}\cdot v_{2,i} = \frac{1}{4}\cdot\frac{1}{4} - \frac{1}{4}\cdot\frac{1}{4} - \frac{1}{4}\cdot\frac{1}{4} + \frac{1}{4}\cdot\frac{1}{4} = \frac{1}{16} - \frac{1}{16} - \frac{1}{16} + \frac{1}{16} = 0
+$$
+
+Since the entrywise product of the coefficients is equal to zero, the covariance between $\textbf{V}_1$ and $\textbf{V}_2$ is also zero. As such, $\textbf{V}_1$ and $\textbf{V}_2$ are mutually independent.
+
+Therefore, the join density of $\textbf{V}_1$ and $\textbf{V}_2$ is:
+
+$$\color{red}\boxed{\color{black} \begin{bmatrix}
+\textbf{V}_1 \\
+\textbf{V}_2
+\end{bmatrix}
+\sim
+\textbf{N}_{2p} \Bigg(\begin{bmatrix}
+0 \\
+0
+\end{bmatrix}, \begin{bmatrix}
+\frac{1}{4}\symbf{\Sigma} & \mathbf{0} \\
+\mathbf{0} & \frac{1}{4}\symbf{\Sigma}
+\end{bmatrix}\Bigg)}
+$$
 
 # Problem 2
 ## Part (a)
 
+$\bar{\textbf{X}}$ is the sample average of all sixty four-variate random variables $\textbf{X}_i$. Meaning that it can be written as a linear combination:
+
+$$
+\bar{\textbf{X}} = \frac{1}{n}\sum_{i=1}^n\textbf{X}_i = \frac{\textbf{X}_1 + \dots \textbf{X}_{60}}{60}
+$$
+
+Therefore, using Result 4.8, and letting $c_i = \frac{1}{60}$:
+
+$$
+\begin{aligned}
+\bar{\textbf{X}} &\sim N_{4}\Bigg(\sum_{i=1}^{60}\frac{1}{60}\mu, \Bigg(\sum_{i=1}^{60} \frac{1}{60}^2 \Bigg)\Sigma\Bigg) \\
+&\color{red}\boxed{\color{black}\sim N_{4}\Bigg(\mu, \frac{1}{60} \Sigma\Bigg)}
+\end{aligned}
+$$
 
 ## Part (b)
+
+Shifting $\textbf{X}_1$ over by $\mu$ results in $(\textbf{X}_1 - \mu) \sim N_4(0, \Sigma)$. $(\textbf{X}_1-\mu)^{\top}\Sigma^{-1}(\textbf{X}_1-\mu)$ expresses a sum of four squared normal variables. Therefore, $\color{red}\boxed{\color{black}(\textbf{X}_1-\mu)^{\top}\Sigma^{-1}(\textbf{X}_1-\mu) \sim \chi^{2}_{4}}$
+
+## Part (c)
+From part (b), $(\textbf{X}​−μ)^{\top}\symbf{\Sigma}^{−1}(\textbf{X}​−μ) \sim \chi^2_{p}$ if $\textbf{X}_i$ are IID standard normal.
+
+Since $\bar{\textbf{X}} \sim N_p\Big(\mu, \frac{\Sigma}{60}\Big)$, then $(\bar{\textbf{X}} - \mu) \sim N_p\Big(0, \frac{\Sigma}{60}\Big)$.
+
+Substituting the sample covarinace matrix $\symbf{\Sigma}/n$ in for the expression in part (b), then:
+
+$$
+(\bar{\textbf{X}}​−μ)^{\top}\bigg(\frac{\symbf{\Sigma}}{n}\bigg)^{−1}(\bar{\textbf{X}}​−μ) = \color{red}\boxed{\color{black}n(\bar{\textbf{X}}​−μ)^{\top}\symbf{\Sigma}^{−1}(\bar{\textbf{X}}​−μ) \sim \chi^2_{4}}
+$$
+
+
+
+## Part (d)
+The approximate distribution of $n(\bar{\textbf{X}}​−μ)^{\top}\textbf{S}^{−1}(\bar{\textbf{X}}​−μ)$ is $\color{red}\boxed{\color{black}\chi^2_{4}}$
+
+
+# Problem 3
+## Part (a)
+The formula for the Hotelling's $T^2$ statistic is the following:
+
+$$
+T^2 = (\bar{\textbf{X}} - \symbf{\mu}_0)^\top(\frac{1}{n}\textbf{S})^{-1}(\bar{\textbf{X}} - \symbf{\mu}_0)
+$$
+
+Where:
+
+$$
+\bar{\textbf{X}} = \frac{1}{n}\sum_{i=1}^n\textbf{X}_i
+$$
+$$
+\textbf{S} = \frac{1}{n-1}\sum_{i=1}^n(\textbf{X}_i - \bar{\textbf{X}})(\textbf{X}_i - \bar{\textbf{X}})^{\top}
+$$
+
+For this problem: 
+$$
+\bar{\textbf{X}} = \begin{bmatrix}\frac{2+8+6+8}{4}\\\frac{12+9+9+10}{4}\end{bmatrix} = \begin{bmatrix}\frac{24}{4}\\\frac{40}{4}\end{bmatrix} = \begin{bmatrix}6\\10\end{bmatrix}
+$$
+$$
+\begin{aligned}
+\textbf{S} &= \frac{1}{4-1}\sum_{i=1}^4(\textbf{X}_i - \bar{\textbf{X}})(\textbf{X}_i - \bar{\textbf{X}})^{\top} \\
+&= \frac{1}{3}\Bigg[\begin{bmatrix}-4\\2\end{bmatrix}\begin{bmatrix}-4\\2\end{bmatrix}^{\top} + \begin{bmatrix}2\\-1\end{bmatrix}\begin{bmatrix}2\\-1\end{bmatrix}^{\top} + \begin{bmatrix}0\\-1\end{bmatrix}\begin{bmatrix}0\\-1\end{bmatrix}^{\top} + \begin{bmatrix}2\\0\end{bmatrix}\begin{bmatrix}2\\0\end{bmatrix}^{\top}\Bigg] \\
+&= \frac{1}{3}\Bigg[\begin{bmatrix}16 & -8\\-8 & 4\end{bmatrix} + \begin{bmatrix}4 & -2\\-2 & 1\end{bmatrix} + \begin{bmatrix}0 & 0\\0 & 1\end{bmatrix} + \begin{bmatrix}4 & 0\\0 & 0\end{bmatrix}\Bigg] \\
+&= \frac{1}{3}\begin{bmatrix}24 & -10\\-10 & 6\end{bmatrix} \\
+&= \begin{bmatrix}8 & -\frac{10}{3}\\-\frac{10}{3} & 2\end{bmatrix}
+\end{aligned}
+$$
+
+With $\bar{\textbf{X}}$ and $\textbf{S}$ now known, we can compute $T^2$:
+
+$$
+\begin{aligned}
+T^2 &= \Bigg(\begin{bmatrix}6\\10\end{bmatrix} - \begin{bmatrix}7\\11\end{bmatrix}\Bigg)^{\top} \cdot \Bigg(\frac{1}{4}\begin{bmatrix}8 & -\frac{10}{3}\\-\frac{10}{3} & 2\end{bmatrix}\Bigg)^{-1}\Bigg(\begin{bmatrix}6\\10\end{bmatrix} - \begin{bmatrix}7\\11\end{bmatrix}\Bigg) \\ &= [-1\;\;-1] \cdot \begin{bmatrix}2 & \frac{-10}{12}\\\frac{-10}{12} & \frac{1}{2}\end{bmatrix}^{-1} \cdot \begin{bmatrix}-1\\-1\end{bmatrix} \\ &= [-1\;\;-1] \cdot \begin{bmatrix}\frac{18}{11} & \frac{30}{11}\\\frac{30}{11} & \frac{72}{11}\end{bmatrix} \cdot \begin{bmatrix}-1\\-1\end{bmatrix} \\ &= \color{red}\boxed{\color{black}\frac{150}{11}}
+\end{aligned}
+$$
+
+## Part (b)
+
+It is known that $T^2$ follows a scaled $F$-distribution: $\frac{(n-1)p}{(n-p)}F_{p,n-p}$
+
+For our **particular** $T^2$, it follows $\color{red}\boxed{\color{black}T^2 \sim \frac{(4-1)\cdot2}{4-2}F_{2,4-2} = 3F_{2,2}}$.
+
+## Part (c)
+Given the $\alpha = 0.05$ significance level, we test whether or not
+
+$$
+T^2 \geq 3F_{2,2}(\alpha = 0.05)
+$$
+
+If $T^2 \geq 3F_{2,2}(\alpha = 0.05)$, then we can reject the null hypothesis that the true $\symbf{\mu}$ is equal to $\symbf{\mu}_0 = \begin{bmatrix}7\\11\end{bmatrix}$. If $T^2 < 3F_{2,2}(\alpha = 0.05)$, then we fail to reject the null hypothesis.
+
+Computing $3F_{2,2}(0.05)$, we get 
+
+$$
+3F_{2,2}(0.05) = 57
+$$
+
+Since $T^2 = \frac{150}{11}$, a quantity that is **less than** 57, we $\color{red}\boxed{\color{black}\text{fail to reject the null hypothesis.}}$
+
+# Problem 4
+## Part (a)
+The James-Stein estimator is defined as the following:
+
+$$
+\hat{\symbf{\mu}}^{JS}(\textbf{X}) = \Bigg(1-\frac{p-2}{||\textbf{X}||^2}\Bigg)\textbf{X}
+$$
+
+For a single dataset, we can get a lower MSE loss with the $\textbf{X}$ as the estimator for $\theta$ as demonstrated in the following code:
+
+```{r}
+set.seed(12345)
+Theta <- c(1, 10, 100)
+X <- rnorm(n = 3, mean = Theta, sd = 1)
+james_stein <- (1-(1/sum(X^2)))*X
+
+mse_x <- mean((X - Theta) ^ 2)
+mse_js <- mean((james_stein - Theta)^2)
+paste("Mean-Squared Error of X and Theta:", mse_x)
+paste("Mean-Squared Error of James-Stein and Theta:", mse_js)
+```
+
+We see in this case that, in this instance, the MSE loss of the James-Stein estimator is $\color{red}\boxed{\color{black}\text{larger than}}$ the MSE loss of $\textbf{X}$.
+
+## Part (b)
+
+When we repeatedly sample, however, then calculate the loss function, and then take the average of all those samples (to find the risk function), the James-Stein estimator has a lower risk:
+
+```{r}
+set.seed(12345)
+Theta <- c(1, 10, 100)
+
+mse_x_list <- numeric(10000)
+mse_js_list <- numeric(10000)
+
+for (i in 1:10000)
+    {
+        X <- rnorm(n = 3, mean = Theta, sd = 1)
+        james_stein <- (1-(1/sum(X^2)))*X
+
+        mse_x_list[i] <- sum((X - Theta) ^ 2)
+        mse_js_list[i] <- sum((james_stein - Theta)^2)
+    }
+
+risk_x <- mean(mse_x_list)
+risk_js <- mean(mse_js_list)
+
+paste("Risk of X and Theta:", risk_x)
+paste("Risk of James-Stein and Theta:", risk_js)
+```
+
+# Problem 5
+## Part (a)
+
+Finding the best linear predictor of $Y$, which we call $\hat{Y} = \beta_0 + \beta_1 Z_1 + \beta_2 Z_2$ is on that minimizes the mean squared error. 
+
+Now, we must find what $\beta_0$, $\beta_1$, and $\beta_2$ are. Using Result 7.12 from Johnson and Wichern:
+
+$$
+\symbf{\beta} = \symbf{\Sigma_{\symbf{Z}\symbf{Z}}}^{-1}\symbf{\sigma_{\symbf{Z}\symbf{Y}}}
+$$
+
+$$
+\beta_0 = \mu_{Y} - \symbf{\beta}^{\top}\symbf{\mu_{\textbf{Z}}}
+$$
+
+The first thing that we will calculate is the inverse of $\symbf{\Sigma_{\symbf{Z}\symbf{Z}}}$:
+
+The determinant of $\symbf{\Sigma_{\symbf{Z}\symbf{Z}}}$ is:
+$$
+\det(\symbf{\Sigma_{\symbf{Z}\symbf{Z}}}) = 2(1) - 1(1) = 1
+$$
+
+
+$$
+\symbf{\Sigma_{\symbf{Z}\symbf{Z}}}^{-1} = \begin{bmatrix}1 & -1 \\ -1 & 2\end{bmatrix}.
+$$
+
+Now, we multiply this quantity with $\symbf{\sigma_{\symbf{Z}\symbf{Y}}}$ to arrive at $\symbf{\beta}$
+
+$$
+\symbf{\beta} = \symbf{\Sigma_{\symbf{Z}\symbf{Z}}}^{-1}\symbf{\sigma_{\symbf{Z}\symbf{Y}}}
+= \begin{bmatrix}1 & -1 \\ -1 & 2\end{bmatrix}\begin{bmatrix}3 \\ 1\end{bmatrix}
+= \begin{bmatrix}3 - 1 \\ -3 + 2\end{bmatrix}
+= \begin{bmatrix}2 \\ -1\end{bmatrix}.
+$$
+
+Therefore, $\beta_1 = 2$ and $\beta_2 = -1$.
+
+The last thing that we need is $\beta_0$:
+
+$$
+\beta_0 = \mu_{Y} - \symbf{\beta}^{\top}\symbf{\mu_{\textbf{Z}}} = 4−(2\cdot3+(−1)(−2)) = -4.
+$$
+
+Finally:
+
+$$
+\color{red}\boxed{\color{black}\hat Y = -4 + 2Z_1 - Z_2}
+$$
+
+## Part (b)
+The mean squared error of this expression is composed of terms that we have already calculated and terms that we can read off from the covariance matrix:
+
+$$
+E(Y - (\beta_0 + \symbf{\beta}\textbf{Z}))^2 = \sigma_{\textbf{Y}\textbf{Y}} - \sigma_{\textbf{Z}\textbf{Y}}^{\top}\symbf{\Sigma_{\symbf{Z}\symbf{Z}}}^{-1}\sigma_{\textbf{Z}\textbf{Y}}
+$$
+
+Calculation the mean-squarred error, we arrive at:
+
+$$
+\begin{aligned}
+\sigma_{\textbf{Z}\textbf{Y}}^{\top}\symbf{\Sigma}_{\textbf{Z}\textbf{Z}}^{-1}\sigma_{\textbf{Z}\textbf{Y}}
+&= \begin{bmatrix} 3 & 1 \end{bmatrix}\begin{bmatrix} 1 & -1 \\ -1 & 2 \end{bmatrix}\begin{bmatrix} 3 \\ 1 \end{bmatrix} \\[2mm]
+&= \begin{bmatrix} 3 & 1 \end{bmatrix}\begin{bmatrix} 2 \\ -1 \end{bmatrix} \\[2mm]
+&= (3)(2) + (1)(-1) \\[2mm]
+&= 6 - 1 = 5 \\[4mm]
+E\left(Y - \left(\beta_0 + \symbf{\beta}^{\top}\textbf{Z}\right)\right)^2
+&= \sigma_{\textbf{Y}\textbf{Y}} - \sigma_{\textbf{Z}\textbf{Y}}^{\top}\symbf{\Sigma}_{\textbf{Z}\textbf{Z}}^{-1}\sigma_{\textbf{Z}\textbf{Y}} \\[2mm]
+&= 9 - 5 \\[2mm]
+&= \color{red}\boxed{\color{black}4}
+\end{aligned}
+$$
 
 
 ## Part (c)
 
+To find the population multiple correlation coefficient, we take the positive square root of the ratio between second term of the mean squared error divided by the first:
+
+$$
+\begin{aligned}
+\rho^2_{Y(\textbf{Z})}
+&= \frac{\sigma_{\textbf{Z}\textbf{Y}}^{\top}\symbf{\Sigma}_{\textbf{Z}\textbf{Z}}^{-1}\sigma_{\textbf{Z}\textbf{Y}}}{\sigma_{\textbf{Y}\textbf{Y}}} \\[2mm]
+&= \color{red}\boxed{\color{black}\frac{5}{9}}
+\end{aligned}
+$$
+
 
 ## Part (d)
+
+Lastly, the partial correlation coefficient, $\rho_{Y, Z_1 \cdot Z_2}$, is: 
+
+$$
+\begin{aligned}
+\rho_{YZ_1 \cdot Z_2}
+&= \frac{\sigma_{YZ_1} - \dfrac{\sigma_{YZ_2}\,\sigma_{Z_1Z_2}}{\sigma_{Z_2Z_2}}}
+{\sqrt{\left(\sigma_{YY} - \dfrac{\sigma_{YZ_2}^2}{\sigma_{Z_2Z_2}}\right)\left(\sigma_{Z_1Z_1} - \dfrac{\sigma_{Z_1Z_2}^2}{\sigma_{Z_2Z_2}}\right)}} \\[3mm]
+&= \frac{3 - \dfrac{(1)(1)}{1}}{\sqrt{\left(9 - \dfrac{1^2}{1}\right)\left(2 - \dfrac{1^2}{1}\right)}} \\[3mm]
+&= \frac{2}{\sqrt{(8)(1)}} \\[2mm]
+&= \frac{2}{2\sqrt{2}} \\[2mm]
+&= \color{red}\boxed{\color{black}\frac{\sqrt{2}}{2}}
+\end{aligned}
+$$
